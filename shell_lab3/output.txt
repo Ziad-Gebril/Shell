@@ -1,0 +1,11 @@
+total 248
+drwxrwxr-x 2 ziad-gebril ziad-gebril   4096 Oct 24 17:08 .
+drwxrwxr-x 4 ziad-gebril ziad-gebril   4096 Oct 24 17:04 ..
+-rw-rw-r-- 1 ziad-gebril ziad-gebril    164 Oct 24 16:47 Makefile
+-rw-rw-r-- 1 ziad-gebril ziad-gebril  14796 Oct 24 16:48 command.cc
+-rw-rw-r-- 1 ziad-gebril ziad-gebril    649 Oct 24  2025 command.h
+-rwxrwxr-x 1 ziad-gebril ziad-gebril 207640 Oct 24 16:49 myshell
+-rw-rw-r-- 1 ziad-gebril ziad-gebril      0 Oct 24 17:08 output.txt
+-rw-r--r-- 1 ziad-gebril ziad-gebril    661 Oct 24 17:04 shell.log
+-rw-rw-r-- 1 ziad-gebril ziad-gebril   1954 Oct 24  2025 tokenizer.cc
+-rw-rw-r-- 1 ziad-gebril ziad-gebril    456 Oct 24  2025 tokenizer.h
