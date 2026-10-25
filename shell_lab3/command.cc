@@ -8,11 +8,13 @@
 #include <fcntl.h>
 #include <time.h>
 #include <glob.h>
+#include <wordexp.h>
 #include <errno.h>
 #include <vector>
 #include <string>
 #include <cctype>
 #include <iostream>
+#include <sstream>
 #include "command.h"
 #include "tokenizer.h"
 
