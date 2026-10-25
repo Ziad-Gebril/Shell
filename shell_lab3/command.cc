@@ -24,7 +24,7 @@
  
  static int logFile = -1;
  
- /* Reap finished children and write a simple message to shell.log. */
+ 
  static void childFinished(int)
  {
      int savedErrno = errno;
@@ -43,7 +43,7 @@
      errno = savedErrno;
  }
  
- /* Make a copy because Command::clear() frees argument strings. */
+
  static char *copyString(const char *text)
  {
      char *copy = (char *)malloc(strlen(text) + 1);
@@ -62,7 +62,7 @@
      return type == TOKEN_COMMAND || type == TOKEN_ARGUMENT;
  }
  
- /* Bonus: expand wildcards such as *.txt and file?.txt. */
+
  static void addArgument(SimpleCommand *command, const std::string &word)
  {
      if (word.find('*') == std::string::npos &&
@@ -93,7 +93,7 @@
      Command::_currentSimpleCommand = NULL;
  }
  
- /* Turn the tokenizer's tokens into the Command table. */
+
  void parse(std::vector<Token> &tokens)
  {
      Command::_currentCommand.clear();
@@ -110,7 +110,7 @@
          if (token.type == TOKEN_EOF)
              break;
  
-         /* The token after >, >>, <, 2>, or >>& must be a filename. */
+
          if (waitingForFile)
          {
              if (!isWord(token.type))
@@ -356,7 +356,7 @@
      return fd;
  }
  
- /* Built-ins must run inside the shell, not in a child process. */
+
  static bool runBuiltIn(Command *command)
  {
      if (command->_numberOfSimpleCommands != 1)
@@ -411,8 +411,7 @@
      fflush(stdout);
  
      int count = _numberOfSimpleCommands;
- 
-     /* One pipe is needed between each pair of commands. */
+
      std::vector<std::vector<int> > pipes;
      for (int i = 0; i < count - 1; i++)
      {
@@ -449,26 +448,26 @@
  
          if (pid == 0)
          {
-             /* Ctrl+C should affect foreground commands, not the shell. */
+
              signal(SIGINT, _background ? SIG_IGN : SIG_DFL);
              signal(SIGCHLD, SIG_DFL);
  
-             /* Read from the previous command's pipe. */
+
              if (i > 0)
                  dup2(pipes[i - 1][0], STDIN_FILENO);
  
-             /* Send output into the next command's pipe. */
+
              if (i < count - 1)
                  dup2(pipes[i][1], STDOUT_FILENO);
  
-             /* Close all pipe descriptors after dup2(). */
+
              for (size_t j = 0; j < pipes.size(); j++)
              {
                  close(pipes[j][0]);
                  close(pipes[j][1]);
              }
  
-             /* Input redirection applies to the first command. */
+
              if (i == 0 && _inputFile != NULL)
              {
                  int fd = openFile(_inputFile, O_RDONLY);
@@ -483,7 +482,7 @@
              int outputFlags = O_WRONLY | O_CREAT |
                                (_append ? O_APPEND : O_TRUNC);
  
-             /* Output redirection applies to the last command. */
+
              if (i == count - 1 && _outFile != NULL)
              {
                  int fd = openFile(_outFile, outputFlags);
@@ -499,7 +498,7 @@
                  close(fd);
              }
  
-             /* Error-only redirection. */
+
              if (_errFile != NULL && !_out_error)
              {
                  int fd = openFile(_errFile, outputFlags);
@@ -521,14 +520,14 @@
          processIDs.push_back(pid);
      }
  
-     /* The shell no longer needs its copies of the pipe descriptors. */
+
      for (size_t i = 0; i < pipes.size(); i++)
      {
          close(pipes[i][0]);
          close(pipes[i][1]);
      }
  
-     /* Background commands return immediately; foreground commands wait. */
+
      if (!_background)
      {
          for (size_t i = 0; i < processIDs.size(); i++)
@@ -540,7 +539,7 @@
  
  void Command::prompt()
  {
-     /* The shell itself should ignore Ctrl+C. */
+
      signal(SIGINT, SIG_IGN);
  
      logFile = open("shell.log", O_WRONLY | O_CREAT | O_APPEND, 0644);
